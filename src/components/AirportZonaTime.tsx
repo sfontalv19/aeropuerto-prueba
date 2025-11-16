@@ -26,7 +26,7 @@ export default function AirportZonaTime() {
         {/* Left side */}
         <div className="pl-10 pt-9 flex flex-col gap-3 w-1/2">
           <h2 className="flex items-center gap-3 text-2xl font-semibold text-[#3DCBFF]">
-            <Image src="/global.png" alt="global icon" width={28} height={28} />
+            <Image src="/global.png" alt="global icon" width={28} height={28}   />
             Zona Horaria
           </h2>
 

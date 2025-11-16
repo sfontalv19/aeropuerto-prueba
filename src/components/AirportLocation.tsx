@@ -1,36 +1,41 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useAirportStore } from "@/store/airportStore";
-import L from "leaflet";
 
-// Ícono personalizado (opcional para pegar al diseño)
-const markerIcon = L.icon({
-  iconUrl: "/markerAirport.png",
-  iconSize: [30, 30],
-  iconAnchor: [15, 30],
-});
+// Cargamos Leaflet solo en cliente (para evitar window undefined)
+const Map = dynamic<{ lat: number; lon: number }>(
+  () => import("./MapView"),
+  { ssr: false }
+);
 
 export default function AirportLocation() {
   const { selectedAirport } = useAirportStore();
 
-  if (!selectedAirport) return null;
+  // Dummy values
+  const lat = selectedAirport?.latitude ? Number(selectedAirport.latitude) : -17.05;
+  const lon = selectedAirport?.longitude ? Number(selectedAirport.longitude) : -145.41667;
+  const geoname = selectedAirport?.geoname_id ?? "6947726";
 
-  const lat = Number(selectedAirport.latitude);
-  const lon = Number(selectedAirport.longitude);
+  const hasValidCoords = !isNaN(lat) && !isNaN(lon);
 
   return (
-    <div className="w-full flex flex-col gap-4">
-
-      {/* CARD con info */}
-      <div className="w-full bg-white/10 border border-white/20 rounded-xl overflow-hidden backdrop-blur-lg 
-        grid grid-cols-1 md:grid-cols-2 animate-fadeIn"
+    <div className="w-full flex flex-col items-center gap-6 mt-10">
+      
+      {/* === CARD === */}
+      <div
+        className="
+          w-[90%] max-w-[1750px] h-[272px] rounded-[7px] border border-white/20 
+          overflow-hidden backdrop-blur-xl text-white
+          bg-gradient-to-r from-[#3F495F] to-[#0E1934]
+          grid grid-cols-1 md:grid-cols-2
+        "
       >
-        {/* Izquierda */}
+        {/* Left Content */}
         <div className="p-6 flex flex-col gap-3">
-          <h2 className="flex items-center gap-2 text-2xl font-bold">
-            <Image src="/locationIcon.png" alt="icon" width={26} height={26} />
+          <h2 className="flex items-center gap-2 text-[22px] font-semibold">
+            <Image src="/locationIcon.png" alt="loc" width={26} height={26} />
             <span className="bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
               Ubicación
             </span>
@@ -38,35 +43,29 @@ export default function AirportLocation() {
 
           <p><b>Latitud:</b> {lat}</p>
           <p><b>Longitud:</b> {lon}</p>
-          <p><b>ID Geoname:</b> {selectedAirport.geoname_id || "No disponible"}</p>
+          <p><b>ID Geoname:</b> {geoname}</p>
         </div>
 
-        {/* Imagen derecha */}
-        <div className="relative opacity-30 md:opacity-50">
-          <Image src="/aviatior.png" alt="airport" fill className="object-cover" />
+        {/* Right Image */}
+        <div className="relative opacity-50">
+          <Image src="/aviatior.png" alt="plane" fill className="object-cover" />
         </div>
       </div>
 
-      {/* MAPA */}
-      <div className="w-full h-[350px] md:h-[450px] rounded-xl overflow-hidden border border-white/20 shadow-lg">
-        <MapContainer 
-          center={[lat, lon]} 
-          zoom={11} 
-          scrollWheelZoom={false}
-          className="w-full h-full z-10"
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-
-          <Marker position={[lat, lon]} icon={markerIcon}>
-            <Popup>
-              <b>{selectedAirport.airport_name}</b> <br />
-              {selectedAirport.city}, {selectedAirport.country_name}
-            </Popup>
-          </Marker>
-        </MapContainer>
+      {/* === MAP === */}
+      <div
+        className="
+          w-[90%] max-w-[1750px] h-[319px] rounded-[7px] border border-white/20
+          overflow-hidden shadow-xl
+        "
+      >
+        {hasValidCoords ? (
+          <Map lat={lat} lon={lon} />
+        ) : (
+          <div className="flex items-center justify-center h-full text-white/70 text-lg">
+            ❗ No hay coordenadas válidas
+          </div>
+        )}
       </div>
     </div>
   );
