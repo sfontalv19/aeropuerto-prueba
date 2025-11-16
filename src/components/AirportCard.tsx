@@ -1,137 +1,80 @@
 "use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { useAirports } from "@/hooks/useAirports";
 
 export default function AirportCards() {
-    const { airports, loading, error, page, setPage } = useAirports();
+  const { airports, loading, error, page, setPage } = useAirports();
 
-    // Loading state
-    if (loading) {
-        return (
-            <p className="text-blue-400 font-medium animate-pulse text-center mt-6">
-                Cargando aeropuertos...
-            </p>
-        );
-    }
+  if (loading) return <p className="text-blue-400 animate-pulse text-center mt-6">Cargando aeropuertos...</p>;
+  if (error) return <p className="text-red-500 text-center mt-6">Error: {error}</p>;
+  if (!airports.length) return <p className="text-gray-300 text-center mt-6">No se encontraron aeropuertos</p>;
 
-    // Error state
-    if (error) {
-        return (
-            <p className="text-red-500 font-medium text-center mt-6">
-                Error: {error}
-            </p>
-        );
-    }
+  return (
+    <div className="w-full max-w-7xl mx-auto">
+      {/* GRID FIGMA CORREGIDO */}
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+        {airports.map((airport) => (
+          <Link key={airport.id} href={`/airports/${airport.iata_code}`} className="no-underline">
+            <div
+              className="
+                group relative w-full h-[235px] rounded-lg overflow-hidden cursor-pointer
+                border border-white/20 bg-[#0B1120]/80 backdrop-blur-md
+                hover:border-[#00F9FF]/40 hover:scale-[1.01]
+                transition-all duration-300
+              "
+            >
+              {/* CONTENEDOR DIVIDIDO 60% - 40% COMO FIGMA */}
+              <div className="grid grid-cols-[60%_40%] h-full">
+                
+                {/* COLUMNA IZQUIERDA - TEXTO PRINCIPAL (60%) */}
+                <div className="p-6 flex flex-col justify-between">
+                  <div>
+                    <h2 className="text-white font-bold text-[17px] leading-tight">
+                      {airport.airport_name}
+                    </h2>
+                    <p className="text-gray-300 text-sm mt-1">
+                      {airport.city}, {airport.country_name}
+                    </p>
+                  </div>
 
-    // No results
-    if (!airports || airports.length === 0) {
-        return (
-            <p className="text-gray-300 text-center mt-6">
-                No se encontraron aeropuertos
-            </p>
-        );
-    }
+                  {/* CÓDIGO IATA PRINCIPAL */}
+                  <div className="mb-4">
+                    <span className="text-4xl font-black text-[#00D9FF] uppercase tracking-wide">
+                      {airport.iata_code}
+                    </span>
+                  </div>
 
-    return (
-        <div className="mt-8 w-full">
+                  {/* AEROPUERTOS RELACIONADOS - NUEVA SECCIÓN */}
+                  
+                </div>
 
-            {/* CARDS GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                {/* COLUMNA DERECHA - IMAGEN (40%) */}
+                <div className="relative w-full h-full">
+                  <Image
+                    src="/aviatior.png"
+                    alt="plane"
+                    fill
+                    className="object-cover opacity-40 group-hover:opacity-50 transition-all duration-300"
+                  />
+                  
+                  
+                </div>
+              </div>
 
-                {airports.map((airport) => (
-                    <Link
-                        key={airport.id}
-                        href={`/airports/${airport.iata_code}`}
-                        className="block w-full no-underline"
-                    >
-                        <div
-                            className="
-                                w-full flex rounded-xl overflow-hidden 
-                                border border-[#2EA9FF]/30
-                                bg-gradient-to-r from-[#0B1D3A] to-[#162B4A]
-                                hover:border-[#2EA9FF]
-                                hover:shadow-[0_0_18px_3px_rgba(46,169,255,0.6)]
-                                transition-all duration-300
-                                min-h-[160px] cursor-pointer
-                            "
-                        >
-
-                            {/* LEFT CONTENT */}
-                            <div className="flex flex-col justify-center gap-2 p-5 w-1/2 z-10">
-                                <h2 className="text-white font-semibold text-lg leading-tight">
-                                    {airport.airport_name}
-                                </h2>
-
-                                <p className="text-gray-300 text-sm">
-                                    {airport.city && airport.country_name
-                                        ? `${airport.city}, ${airport.country_name}`
-                                        : airport.country_name}
-                                </p>
-
-                                <span className="mt-1 text-3xl font-bold text-[#35D1FF] uppercase tracking-wide">
-                                    {airport.iata_code || "N/A"}
-                                </span>
-                            </div>
-
-                            {/* RIGHT SIDE - BACKGROUND + ICON */}
-                            <div className="relative w-1/2">
-
-                                {/* ICON */}
-                                <div className="absolute top-4 right-4 z-20">
-                                    <Image
-                                        src="/aviation.png"
-                                        alt="Airplane Icon"
-                                        width={36}
-                                        height={36}
-                                    />
-                                </div>
-
-                                {/* BACKGROUND IMAGE */}
-                                <Image
-                                    src="/aviatior.png"
-                                    alt="Plane Background"
-                                    fill
-                                    className="object-cover opacity-30"
-                                    sizes="50vw"
-                                />
-                            </div>
-                        </div>
-                    </Link>
-                ))}
+              {/* ICONO AVIÓN SUPERIOR DERECHO */}
+              <div
+                className="
+                  absolute top-4 right-4 w-10 h-10 rounded-full border border-white/40
+                  bg-white/10 backdrop-blur-lg flex justify-center items-center
+                "
+              >
+                <Image src="/aviation.png" alt="plane icon" width={20} height={20} />
+              </div>
             </div>
-
-            {/* PAGINATION */}
-            <div className="flex justify-center gap-4 mt-8">
-                <button
-                    onClick={() => setPage(Math.max(1, page - 1))}
-                    disabled={page === 1}
-                    className="
-                        px-4 py-2 rounded-md text-white
-                        bg-gray-600 disabled:bg-gray-500/30
-                        hover:bg-gray-500
-                        transition-all
-                    "
-                >
-                    Anterior
-                </button>
-
-                <span className="text-white font-semibold py-2">
-                    Página {page}
-                </span>
-
-                <button
-                    onClick={() => setPage(page + 1)}
-                    className="
-                        px-4 py-2 rounded-md text-white
-                        bg-blue-600 hover:bg-blue-500
-                        transition-all
-                    "
-                >
-                    Siguiente
-                </button>
-            </div>
-        </div>
-    );
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }

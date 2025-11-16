@@ -5,18 +5,34 @@ import { useAirports } from "@/hooks/useAirports";
 export default function AirportsSearch() {
     const { search, setSearch } = useAirports();
 
-    return(
-        <div className="mb-6">
+    return (
+        <div className="flex items-center gap-3 w-full md:w-auto">
+            
+            {/* Input con ancho fijo parecido al Figma */}
             <input
-            type = "text"
-            placeholder="Buscar aeropuerto por nombre o codigo"
-            value={search}
-            onChange={(e) => 
-                setSearch(e.target.value)
-            }
-            className="w-full p-3 border border-gray-300 rounded-lg shadow-sm 
-                        focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />            
+                type="text"
+                placeholder="Buscar aeropuertos..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="
+                  w-[780px] max-w-full px-6 py-2.5
+                  bg-white/15 border border-white/25 
+                  rounded-full text-gray-200 placeholder-gray-400
+                  focus:outline-none focus:border-[#00F9FF] 
+                  transition-colors
+                "
+            />
+
+            {/* Botón */}
+            <button
+                className="
+                  px-5 py-2.5 text-white font-medium rounded-lg
+                  bg-gradient-to-r from-[#006AFF] to-[#00F9FF]
+                  hover:opacity-90 transition-all
+                "
+            >
+                Buscar
+            </button>
         </div>
-    )
+    );
 }

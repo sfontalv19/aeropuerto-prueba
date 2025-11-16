@@ -3,7 +3,7 @@ import { paginate, searchByKeys } from "@/utils/standardRequestsMethods";
 export class AirportService {
     private static BASE_URL = "http://api.aviationstack.com/v1"
 
-    static async getAirports(search?: string, page: number =1){
+    static async getAirports(search: string, page: number =1){
         const accessKey = process.env.NEXT_PUBLIC_AVIATIONSTACK_KEY;
 
         const url = `${this.BASE_URL}/airports?access_key=${accessKey}&limit=1000`;

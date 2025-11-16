@@ -4,8 +4,9 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
 export default function AirportTabs() {
-  const { iata } = useParams();                    // obtiene el código desde la URL
-  const pathname = usePathname();                 // saber qué tab está activa
+  const params = useParams<{ iata: string }>();
+  const iata = params.iata.toString();
+  const pathname = usePathname();
 
   const tabs = [
     { label: "General", path: `/airports/${iata}` },
@@ -15,17 +16,19 @@ export default function AirportTabs() {
   ];
 
   return (
-    <div className="flex justify-center mt-6">
-      <div className="flex w-full max-w-4xl bg-[#FFFFFF14] rounded-lg overflow-hidden backdrop-blur-sm border border-white/10">
+    <div className="flex w-full justify-center mt-10">
+      <div className="w-full max-w-[1750px] h-[78px] bg-[#3F495F] bg-opacity-50 border border-white/10 rounded-lg backdrop-blur-md flex overflow-hidden">
         {tabs.map((tab) => {
-          const isActive = pathname === tab.path;
+          const isActive =
+            pathname === tab.path ||
+            pathname.startsWith(tab.path + "/");
 
           return (
             <Link
               key={tab.label}
               href={tab.path}
               className={`
-                flex-1 py-3 text-sm font-medium text-center transition-all
+                flex-1 flex items-center justify-center text-sm font-semibold transition-all
                 ${isActive
                   ? "bg-gradient-to-r from-[#3C7CFF] to-[#00E2C9] text-white shadow-md"
                   : "text-gray-300 hover:bg-white/10"

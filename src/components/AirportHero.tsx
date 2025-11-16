@@ -1,73 +1,117 @@
 "use client";
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface AirportHeroProps {
   onSearch?: (query: string) => void;
+  showBackground?: boolean;
 }
 
-export default function AirportHero({ onSearch }: AirportHeroProps) {
+export default function AirportHero({ 
+  onSearch, 
+  showBackground = true 
+}: AirportHeroProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
 
   const handleSearch = () => {
-    if (onSearch) onSearch(query);
+    if (!query.trim()) return;
+    
+    if (onSearch) {
+      onSearch(query); // ← Si viene prop, usarla
+    } else {
+      router.push(`/airports?search=${query}`); // ← Comportamiento por defecto
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') handleSearch();
   };
 
   return (
-    <header
-      className="
-        w-full px-6 py-6 md:py-10
-        bg-gradient-to-br from-[#071428] via-[#0B1D3A] to-[#0E1F3B]
-        rounded-b-2xl
-      "
-    >
-      {/* FLEX ROW EXACTO IGUAL AL FIGMA */}
-      <div
-        className="
-          w-full flex flex-col md:flex-row
-          items-center justify-between
-          gap-6
-        "
-      >
-        {/* Title */}
-        <h1 className="text-4xl md:text-5xl font-extrabold leading-none">
-          <span className="bg-gradient-to-r from-[#40CFFF] to-[#4493FF] text-transparent bg-clip-text">
-            Sky
-          </span>
-          Connect{" "}
-          <span className="bg-gradient-to-r from-[#40CFFF] to-[#4493FF] text-transparent bg-clip-text">
-            Explorer
-          </span>
+    <>
+      {/* FONDO (opcional - reutilizable en otras páginas) */}
+      {showBackground && (
+        <>
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: "url('/fondo.png')" }}
+          ></div>
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(180deg, rgba(17, 22, 56, 0.4) 10%, rgba(17, 22, 56, 0.4) 50%, rgba(2, 0, 48, 0.4) 10%)'
+            }}
+          ></div>
+        </>
+      )}
+
+      {/* CONTENIDO PRINCIPAL */}
+      <div className="relative z-10 flex flex-col items-center justify-center w-full">
+        
+        {/* TÍTULO */}
+        <h1 
+          className="text-[80.91px] leading-none font-black text-center mb-16"
+          style={{
+            fontFamily: 'Montserrat, sans-serif',
+            background: 'linear-gradient(90deg, #006AFF 0%, #00C9FF 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            position: 'relative',
+            top: '-155px',
+            width: '955px',
+          }}
+        >
+          SkyConnect Explorer
         </h1>
 
-        {/* Search Container */}
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        {/* BÚSQUEDA */}
+        <div className="flex flex-col items-center gap-4 mb-20">
+          
           <input
             type="text"
             placeholder="Buscar aeropuertos..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="
-              w-full md:w-[520px] px-6 py-3
-              rounded-full bg-white text-gray-700
-              border border-white/40 shadow-inner
-              focus:ring-2 focus:ring-[#38B6FF] focus:border-[#38B6FF]
-              outline-none text-sm
-            "
+            onKeyPress={handleKeyPress}
+            className="bg-white rounded-[18.445px] shadow-[0_1.83px_3.66px_rgba(0,0,0,0.05)] text-gray-800 border-0 outline-none font-normal text-[20px] leading-[36.89px] placeholder-[#006FEE]"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              width: '780px',
+              height: '58.54px',
+              top: '476px',
+              left: '570px',
+              padding: '0 20px'
+            }}
           />
+          
           <button
             onClick={handleSearch}
-            className="
-              flex items-center gap-2 px-5 py-3
-              rounded-lg text-white font-medium text-sm
-              bg-gradient-to-r from-[#3C7CFF] to-[#00E2C9]
-              border border-white/40 shadow-lg
-              hover:brightness-110 transition-all
-            "
+            className="text-white transition-all hover:scale-105 flex items-center justify-center gap-[15.6px] border"
+            style={{
+              fontFamily: 'Inter, sans-serif',
+              width: '240.5px',
+              height: '52.6px',
+              borderRadius: '10.4px',
+              border: '1.3px solid #FFFFFF',
+              padding: '7.8px 31.2px',
+              background: 'linear-gradient(90deg, #006AFF 0%, #00FFE7 100%)',
+              fontSize: '19.5px',
+              fontWeight: '500',
+              lineHeight: '36.4px'
+            }}
           >
-            🔍 Buscar
+            <img 
+              src="/lupa.png" 
+              alt="Buscar"
+              style={{ width: '31.2px', height: '31.2px' }}
+            />
+            <span>Buscar</span>
           </button>
         </div>
       </div>
-    </header>
+    </>
   );
 }
