@@ -1,8 +1,12 @@
 import { create } from "zustand";
 import { AirportService } from "@/services/airports.services";
+import { ReactNode } from "react";
 
 
 export interface Airport{
+    geoname_id: string;
+    country_code: ReactNode;
+    gmt: number;
     id: string;
     airport_name: string;
     iata_code: string;
@@ -29,6 +33,7 @@ interface AirportStore {
     setSelectedAirport: (airport: Airport) => void;
 
     fetchAirports: () => Promise<void>;
+    fetchAirportByIata: (iata: string) => Promise<void>;
 }
 
 
@@ -62,6 +67,19 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
       set({ loading: false });
     }
   },
+
+  fetchAirportByIata: async (iata: string) => {
+  try {
+    set({ loading: true, error: null });
+    const airport = await AirportService.getAirportById(iata);
+    set({ selectedAirport: airport });
+  } catch (err: any) {
+    set({ error: err.message });
+  } finally {
+    set({ loading: false });
+  }
+},
+
 }));
 
 

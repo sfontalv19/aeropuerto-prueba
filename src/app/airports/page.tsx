@@ -1,23 +1,27 @@
-"use client";
 
-import AirportsSearch from "@/components/AirportSearch";
-import AirportTable from "@/components/AirportTable";
+import AirportCards from "@/components/AirportCard";
+import AirportHero from "@/components/AirportHero";
 
+export default function AirportsPage() {
+  return (
+    <div
+      className="  relative min-h-screen w-full flex flex-col items-center bg-cover bg-center bg-no-repeat text-white"   
+    style={{ backgroundImage: "url('/fondo.png')" }} 
+    >
+      {/* Overlay oscuro */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
 
-export default function AirportsPAge() {
-    return(
-        <main className="min-h-screen p-6 max-w-4x1 mx-auto">
-            <h1 className="text-3x1 font-bold mb-6"> Listado de Aeropuertos</h1>
-           {/* 🔍 Buscador */}
+      {/* Contenido visible */}
+      <div className="relative z-10 w-full max-w-7xl pb-20">
 
-           <AirportsSearch/>
+        {/* HERO (título + buscador dentro del componente) */}
+        <AirportHero />
 
-           {/* table */}
-
-           <AirportTable/>
-           
-        </main>
-
-    )
+        {/* Cards */}
+        <div className="px-4 md:px-10 mt-10">
+          <AirportCards />
+        </div>
+      </div>
+    </div>
+  );
 }
-
