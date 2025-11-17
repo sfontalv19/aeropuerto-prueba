@@ -1,0 +1,37 @@
+// app/airports/[iata]/statistics/page.tsx
+"use client";
+
+import { useEffect } from "react";
+import { useParams } from "next/navigation";
+import { useAirportStore } from "@/store/airportStore";
+import AirportTabs from "@/components/AirportTabs";
+import AirportStatistics from "@/components/AiportStatistics";
+
+export default function StatisticsPage() {
+  const { iata } = useParams();
+  const { selectedAirport, fetchAirportByIata, loading } = useAirportStore();
+
+  useEffect(() => {
+    if (iata && (!selectedAirport || selectedAirport.iata_code !== iata)) {
+      fetchAirportByIata(iata as string);
+    }
+  }, [iata]);
+
+  return (
+    <div
+      className="relative min-h-screen w-full text-white bg-cover bg-center bg-no-repeat flex justify-center"
+      style={{ backgroundImage: "url('/fondo.png')" }}
+    >
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      <div className="relative z-10 w-full max-w-[1750px] px-6 flex flex-col items-center mt-[80px]">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
+          {selectedAirport?.iata_code || selectedAirport?.iata_code || "Estadísticas"}
+        </h1>
+
+        <AirportTabs />
+        <AirportStatistics />
+      </div>
+    </div>
+  );
+}

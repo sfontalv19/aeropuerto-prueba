@@ -66,7 +66,7 @@ export default function LocationPage() {
 
         {/* Airport Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
-          {selectedAirport.airport_name || selectedAirport.iata_code || iata}
+          {selectedAirport.iata_code || selectedAirport.iata_code || iata}
         </h1>
 
         {/* Tabs */}
