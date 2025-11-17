@@ -3,6 +3,8 @@ import { useAirportStore } from "@/store/airportStore";
 import Image from "next/image";
 import Link from "next/link";
 
+// Lista las tarjetas de aeropuertos aplicando estados de carga/error antes de renderizar.
+
 export default function AirportCards() {
   const { airports, loading, error, setSelectedAirport } = useAirportStore(); 
 

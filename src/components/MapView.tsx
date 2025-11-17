@@ -23,9 +23,10 @@ interface MapViewProps {
   iataCode?: string;
 }
 
+// Wrapper de Leaflet que renderiza un mapa centrado en el aeropuerto y muestra un popup con datos básicos.
 export default function MapView({ lat, lon, airportName, iataCode }: MapViewProps) {
   
-  // 👇 Solución para el bug de tiles de Leaflet en SSR
+  //  Solución para el bug de tiles de Leaflet en SSR
   useEffect(() => {
     // Forzar re-render del mapa
     const timer = setTimeout(() => {
@@ -41,7 +42,7 @@ export default function MapView({ lat, lon, airportName, iataCode }: MapViewProp
       scrollWheelZoom={true}
       style={{ height: "100%", width: "100%", zIndex: 0 }}
     >
-      {/* 👇 Usar OpenStreetMap (gratis, sin límites) */}
+      {/*  Usar OpenStreetMap (gratis, sin límites) */}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

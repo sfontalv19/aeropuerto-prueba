@@ -2,6 +2,8 @@
 
 import { useAirports } from "@/hooks/useAirports";
 
+// Input controlado que actualiza el filtro global de aeropuertos.
+
 export default function AirportsSearch() {
     const { search, setSearch } = useAirports();
 

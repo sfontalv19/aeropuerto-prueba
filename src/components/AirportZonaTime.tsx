@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useAirportStore } from "@/store/airportStore";
 import { getLocalTime, formatGMT } from "@/utils/timeUtils";
 
+// Muestra zona horaria y hora local actualizada del aeropuerto seleccionado.
+
 export default function AirportZonaTime() {
   const { selectedAirport } = useAirportStore();
   const [currentTime, setCurrentTime] = useState<string>("");

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { ReactNode } from "react";
-import { AirportService } from "@/services/airports.services"; // 👈 Importar tu servicio
+import { AirportService } from "@/services/airports.services"; //  Importar tu servicio
 
 // ===== Interfaces =====
 export interface Airport {
@@ -39,6 +39,7 @@ interface AirportStore {
   fetchAirportById: (id: string) => Promise<void>; // 👈 Agregado
 }
 
+// Store global que controla listado, aeropuerto seleccionado y caché en memoria.
 export const useAirportStore = create<AirportStore>((set, get) => ({
   airports: [],
   selectedAirport: null,
@@ -48,11 +49,12 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
   page: 1,
   search: "",
 
+  // Setters sincronizados con la UI (reinicia page al cambiar search).
   setSearch: (value) => set({ search: value, page: 1 }),
   setPage: (value) => set({ page: value }),
   setSelectedAirport: (airport) => set({ selectedAirport: airport }),
 
-  //  CONECTADO A TU API
+  //  Obtiene la página actual desde AirportService aplicando search/paginación.
   fetchAirports: async () => {
     try {
       set({ loading: true, error: null });
@@ -71,7 +73,7 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
     }
   },
 
-  //  BUSCAR POR IATA (usa búsqueda general y filtra)
+  // Busca en caché y, de no existir, consulta la API filtrando por IATA exacto.
   fetchAirportByIata: async (iata: string) => {
     try {
       set({ loading: true, error: null });
@@ -106,7 +108,7 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
     }
   },
 
-  //  BUSCAR POR ID (nuevo método)
+  // Consulta directa por ID manteniendo el resultado en caché local.
   fetchAirportById: async (id: string) => {
     try {
       set({ loading: true, error: null });

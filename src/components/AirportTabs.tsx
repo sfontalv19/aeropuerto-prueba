@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
+// Navegación entre secciones del detalle usando la ruta dinámica actual como base.
+
 export default function AirportTabs() {
   const params = useParams<{ iata: string }>();
   const iata = params.iata.toString();

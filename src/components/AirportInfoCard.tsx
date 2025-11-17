@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { useAirportStore } from "@/store/airportStore";
 
+// Tarjeta principal con datos básicos del aeropuerto seleccionado.
+
 export default function AirportInfoCard() {
   const { selectedAirport } = useAirportStore();
 

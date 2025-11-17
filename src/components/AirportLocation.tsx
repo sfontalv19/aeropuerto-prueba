@@ -17,6 +17,8 @@ const Map = dynamic(
   }
 );
 
+// Combina la ficha de ubicación con el mapa interactivo si existen coordenadas válidas.
+
 export default function AirportLocation() {
   const { selectedAirport } = useAirportStore();
 

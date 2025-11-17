@@ -5,6 +5,8 @@ import Image from "next/image";
 import { BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { StatisticsService } from "@/services/StatisticsService";
 
+// Panel de estadísticas que consume datos remotos y los dibuja con Recharts.
+
 export default function AirportStatistics() {
   const [stats, setStats] = useState<any>(null);
   const [taxes, setTaxes] = useState<any[]>([]);

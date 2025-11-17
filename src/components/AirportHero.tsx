@@ -12,6 +12,7 @@ export default function AirportHero({
   onSearch, 
   showBackground = true 
 }: AirportHeroProps) {
+  // Hero reutilizable con buscador que puede delegar el submit o navegar por defecto.
   const router = useRouter();
   const [query, setQuery] = useState("");
 

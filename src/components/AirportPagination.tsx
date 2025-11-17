@@ -2,6 +2,8 @@
 
 import { useAirports } from "@/hooks/useAirports";
 
+// Control de paginación simple que sincroniza el store con botones anterior/siguiente.
+
 export default function AirportPagination() {
   const { 
     page, 
