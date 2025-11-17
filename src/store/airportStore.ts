@@ -52,14 +52,14 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
   setPage: (value) => set({ page: value }),
   setSelectedAirport: (airport) => set({ selectedAirport: airport }),
 
-  // 🔥 CONECTADO A TU API
+  //  CONECTADO A TU API
   fetchAirports: async () => {
     try {
       set({ loading: true, error: null });
 
       const { search, page } = get();
       
-      // 👇 Usar tu servicio
+      //  Usar tu servicio
       const airports = await AirportService.getAirports(search, page);
 
       set({ airports: airports || [] });
@@ -71,7 +71,7 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
     }
   },
 
-  // 🔥 BUSCAR POR IATA (usa búsqueda general y filtra)
+  //  BUSCAR POR IATA (usa búsqueda general y filtra)
   fetchAirportByIata: async (iata: string) => {
     try {
       set({ loading: true, error: null });
@@ -84,7 +84,7 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
         return;
       }
 
-      // 👇 Buscar usando tu servicio (búsqueda general)
+      //  Buscar usando tu servicio (búsqueda general)
       const airports = await AirportService.getAirports(iata, 1);
       
       // Filtrar el que coincida exactamente con IATA
@@ -106,7 +106,7 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
     }
   },
 
-  // 🔥 BUSCAR POR ID (nuevo método)
+  //  BUSCAR POR ID (nuevo método)
   fetchAirportById: async (id: string) => {
     try {
       set({ loading: true, error: null });
