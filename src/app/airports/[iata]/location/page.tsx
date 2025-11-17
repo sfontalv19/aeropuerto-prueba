@@ -62,18 +62,22 @@ export default function LocationPage() {
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Contenedor centrado */}
-      <div className="relative z-10 w-full max-w-[1750px] px-6 flex flex-col items-center mt-[80px]">
-
+      <div className="relative z-10 w-full max-w-[1200px] px-4 sm:px-6 flex flex-col items-center mt-20">
+        <div className="h-5"></div>
         {/* Airport Title */}
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text tracking-wide">
           {selectedAirport.iata_code || selectedAirport.iata_code || iata}
         </h1>
-
+        <div className="h-6"></div>
         {/* Tabs */}
-        <AirportTabs />
-
+        <div className="w-full mb-10">
+          <AirportTabs />
+        </div>
+          <div className="h-8"></div>
         {/* Location Component */}
-        <AirportLocation />
+        <div className="w-full">
+          <AirportLocation />
+        </div>
       </div>
     </div>
   );

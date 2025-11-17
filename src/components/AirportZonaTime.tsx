@@ -30,72 +30,58 @@ export default function AirportZonaTime() {
   }, [selectedAirport?.timezone]);
 
   return (
-    <div className="w-full flex flex-col items-center gap-8 mt-8">
+    <div className="w-full flex flex-col items-center gap-8 mt-8 px-4 sm:px-6 lg:px-10">
 
-      {/* CARD 1 - ZONA HORARIA (272px) */}
-      <div
-        className="flex justify-between items-center relative text-white"
-        style={{
-          width: "1748px",
-          height: "272px",
-          borderRadius: "7px",
-          border: "1px solid #3F495F",
-          background: "linear-gradient(90deg, #3F495F 0%, #0E1934 100%)",
-          overflow: "hidden",
-        }}
-      >
+      {/* CARD 1 - ZONA HORARIA */}
+      <div className="w-full max-w-[1200px] text-white rounded-xl border border-white/15 bg-gradient-to-r from-[#3F495F]/80 to-[#0E1934]/90 shadow-[0_12px_35px_rgba(0,0,0,0.35)] overflow-hidden flex flex-col md:flex-row">
         {/* Left side */}
-        <div className="pl-10 pt-9 flex flex-col gap-3 w-1/2">
+        <div className="w-full md:w-1/2 p-6 md:p-10 flex flex-col gap-4">
           <h2 className="flex items-center gap-3 text-2xl font-semibold text-[#3DCBFF]">
             <Image src="/global.png" alt="global icon" width={28} height={28} />
             Zona Horaria
           </h2>
 
-          <p><b>Zona Horaria:</b> {timeZone}</p>
-          <p><b>GMT:</b> {gmt}</p>
+          <div className="space-y-2 text-[17px] leading-relaxed">
+            <p><b>Zona Horaria:</b> {timeZone}</p>
+            <p><b>GMT:</b> {gmt}</p>
+          </div>
         </div>
 
         {/* Right image */}
-        <div className="w-1/2 h-full relative">
+        <div className="relative w-full md:w-1/2 h-48 md:h-auto min-h-[180px]">
           <Image
             src="/aviatior.png"
             alt="airport plane"
             fill
             className="object-cover opacity-60"
           />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/60" />
         </div>
       </div>
 
-      {/* CARD 2 - HORA LOCAL (227px) */}
-      <div
-        className="flex justify-between items-center relative text-white"
-        style={{
-          width: "1748px",
-          height: "227px",
-          borderRadius: "7px",
-          border: "1px solid #3F495F",
-          background: "linear-gradient(90deg, #3F495F 0%, #0E1934 100%)",
-          overflow: "hidden",
-        }}
-      >
+      {/* CARD 2 - HORA LOCAL */}
+      <div className="w-full max-w-[1200px] text-white rounded-xl border border-white/15 bg-gradient-to-r from-[#3F495F]/80 to-[#0B1530]/90 shadow-[0_12px_35px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col md:flex-row">
         {/* Left side */}
-        <div className="pl-10 pt-8 flex flex-col gap-3 w-1/2">
+        <div className="w-full md:w-1/2 p-6 md:p-9 flex flex-col gap-4">
           <h2 className="flex items-center gap-3 text-2xl font-semibold text-[#3DCBFF]">
             <Image src="/ClockCircle.png" alt="clock icon" width={28} height={28} />
             Hora Local
           </h2>
 
-          <p className="text-lg font-mono">{currentTime || "Calculando..."}</p>
+          <p className="text-lg md:text-xl font-mono text-white/90">
+            {currentTime || "Calculando..."}
+          </p>
         </div>
 
         {/* Right image */}
-        <div className="w-1/2 h-full relative">
+        <div className="relative w-full md:w-1/2 h-40 md:h-auto min-h-[160px]">
           <Image
             src="/aviatior.png"
             alt="airport plane"
             fill
             className="object-cover opacity-60"
           />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/60" />
         </div>
       </div>
     </div>

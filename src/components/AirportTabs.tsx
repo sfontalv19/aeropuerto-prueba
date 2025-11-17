@@ -18,22 +18,25 @@ export default function AirportTabs() {
   ];
 
   return (
-    <div className="flex w-full justify-center mt-10">
-      <div className="w-full max-w-[1750px] h-[78px] bg-[#3F495F] bg-opacity-50 border border-white/10 rounded-lg backdrop-blur-md flex overflow-hidden">
+    <div className="flex w-full justify-center ">
+      <div
+        className="w-full rounded-[7px] bg-[#414b63]/70 border border-white/15 backdrop-blur-lg p-1 flex gap-1 shadow-[0_15px_45px_rgba(0,0,0,0.35)]"
+        style={{ maxWidth: "1750px", minHeight: "78px" }}
+      >
         {tabs.map((tab) => {
-          const isActive =
-            pathname === tab.path ||
-            pathname.startsWith(tab.path + "/");
+          const isActive =  pathname === tab.path
+         
 
           return (
             <Link
               key={tab.label}
               href={tab.path}
               className={`
-                flex-1 flex items-center justify-center text-sm font-semibold transition-all
-                ${isActive
-                  ? "bg-gradient-to-r from-[#3C7CFF] to-[#00E2C9] text-white shadow-md"
-                  : "text-gray-300 hover:bg-white/10"
+                flex-1 flex items-center justify-center text-sm font-semibold rounded-[14px] px-4 py-3 transition-all duration-200
+                ${
+                  isActive
+                    ? "bg-gradient-to-r from-[#1D8BFF] to-[#00E2C9] text-white shadow-[0_10px_25px_rgba(0,0,0,0.25)]"
+                    : "text-white/70 hover:text-white"
                 }
               `}
             >

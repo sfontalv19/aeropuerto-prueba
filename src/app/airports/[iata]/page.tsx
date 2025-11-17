@@ -25,20 +25,20 @@ export default function AirportDetailPage() {
       <div className="absolute inset-0 bg-black/50" />
 
       {/* CONTENT CONTAINER */}
-      <div className="relative z-10 flex flex-col items-center w-full">
-
+      <div className="relative z-10 flex flex-col items-center w-full px-4 sm:px-6">
+        <div className="h-5"></div>
         {/* TITLE */}
-        <h1 className="text-5xl font-extrabold mt-10 mb-6 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
+        <h1 className="text-4xl md:text-5xl font-extrabold mt-12 mb-8 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text tracking-wide">
           {iata?.toString().toUpperCase()}
         </h1>
-
+        <div className="h-6"></div>
         {/* NAVIGATION TABS */}
-        <div className="w-full max-w-[1750px] px-6 mb-8">
+        <div className="w-full max-w-[1200px] pb-16">
           <AirportTabs />
         </div>
-
+        <div className="h-8"></div>
         {/* CARD — CENTERED BOX */}
-        <div className="w-full max-w-[1750px] px-6 flex justify-center">
+        <div className="w-full max-w-[1200px] flex justify-center mt-15">
           <AirportInfoCard />
         </div>
       </div>
