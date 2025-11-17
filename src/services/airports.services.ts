@@ -6,7 +6,7 @@ export class AirportService {
     static async getAirports(search: string, page: number =1){
         const accessKey = process.env.NEXT_PUBLIC_AVIATIONSTACK_KEY;
 
-        const url = `${this.BASE_URL}/airports?access_key=${accessKey}&limit=1000`;
+        const url = `${this.BASE_URL}/airports?access_key=${accessKey}&limit=50`;
 
         const response = await fetch(url)
 

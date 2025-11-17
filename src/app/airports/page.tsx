@@ -1,10 +1,20 @@
 "use client";
 
+import { useEffect } from "react";
+import { useAirportStore } from "@/store/airportStore";
+
 import AirportPagination from "@/components/AirportPagination";
 import AirportCards from "@/components/AirportCard";
 import AirportsSearch from "@/components/AirportSearch";
 
 export default function AirportsPage() {
+
+  const { fetchAirports } = useAirportStore();
+
+  useEffect(() => {
+    fetchAirports();  // 🚀 carga inicial de datos reales
+  }, []);
+
   return (
     <div
       className="
@@ -13,13 +23,9 @@ export default function AirportsPage() {
       "
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
-      {/* Overlay oscuro */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
-      {/* Contenedor principal */}
       <div className="relative z-10 w-full max-w-7xl px-4 md:px-10 pt-12 pb-20">
-
-        {/* HEADER: Título + Buscador en una fila */}
         <div
           className="
             w-full flex flex-col gap-6
@@ -35,19 +41,16 @@ export default function AirportsPage() {
             SkyConnect Explorer
           </h1>
 
-          {/* Este debe ser el único contenedor del buscador */}
           <div className="wflex justify-end w-full md:w-auto">
             <AirportsSearch />
           </div>
         </div>
 
-        {/* Cards con separación real */}
         <div className="mt-14 mb-16">
           <AirportCards />
         </div>
 
-
-        <AirportPagination/>
+        <AirportPagination />
       </div>
     </div>
   );

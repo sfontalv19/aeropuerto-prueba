@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { ReactNode } from "react";
-import { dummyAirports } from "@/services/dataDummy";
-
+import { AirportService } from "@/services/airports.services"; // 👈 Importar tu servicio
 
 // ===== Interfaces =====
 export interface Airport {
@@ -18,7 +17,7 @@ export interface Airport {
   longitude?: number;
   timezone?: number;
   phone?: string;
-  local_time?:string
+  local_time?: string;
 }
 
 interface AirportStore {
@@ -36,6 +35,7 @@ interface AirportStore {
 
   fetchAirports: () => Promise<void>;
   fetchAirportByIata: (iata: string) => Promise<void>;
+  fetchAirportById: (id: string) => Promise<void>; // 👈 Agregado
 }
 
 export const useAirportStore = create<AirportStore>((set, get) => ({
@@ -46,56 +46,51 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
   error: null,
   page: 1,
   search: "",
-  totalPages: 0,
-  totalResult: 0,
-  
 
   setSearch: (value) => set({ search: value, page: 1 }),
-  setPage: (value: number) => set({ page: value }),
+  setPage: (value) => set({ page: value }),
   setSelectedAirport: (airport) => set({ selectedAirport: airport }),
 
-  // =========================
-  // Simulación de fetch
-  // =========================
+  // 🔥 CONECTADO A TU API
   fetchAirports: async () => {
     try {
       set({ loading: true, error: null });
+
       const { search, page } = get();
+      
+      // 👇 Usar tu servicio
+      const airports = await AirportService.getAirports(search, page);
 
-      // Filtrar localmente simulando API
-      const filtered = dummyAirports.filter((a) =>
-        a.airport_name.toLowerCase().includes(search.toLowerCase()) ||
-        a.city.toLowerCase().includes(search.toLowerCase()) ||
-        a.country_name.toLowerCase().includes(search.toLowerCase()) ||
-        a.iata_code.toLowerCase().includes(search.toLowerCase())
-      );
+      set({ airports: airports || [] });
 
-      // Paginación local simulada
-      const pageSize = 10;
-      const start = (page - 1) * pageSize;
-      const paginated = filtered.slice(start, start + pageSize);
-
-      set({ airports: paginated });
     } catch (err: any) {
-      set({ error: err.message });
+      set({ error: err.message, airports: [] });
     } finally {
       set({ loading: false });
     }
   },
 
+  // 🔥 BUSCAR POR IATA (usa búsqueda general y filtra)
   fetchAirportByIata: async (iata: string) => {
     try {
       set({ loading: true, error: null });
 
       const { aiportCache } = get();
-
-      // Si está cacheado evita calcular
+      
+      // Revisar caché primero
       if (aiportCache[iata]) {
         set({ selectedAirport: aiportCache[iata] });
         return;
       }
 
-      const airport = dummyAirports.find(a => a.iata_code.toLowerCase() === iata.toLowerCase());
+      // 👇 Buscar usando tu servicio (búsqueda general)
+      const airports = await AirportService.getAirports(iata, 1);
+      
+      // Filtrar el que coincida exactamente con IATA
+      const airport = airports?.find(
+        (a: Airport) => a.iata_code?.toLowerCase() === iata.toLowerCase()
+      );
+
       if (!airport) throw new Error("Aeropuerto no encontrado");
 
       set((state) => ({
@@ -104,7 +99,37 @@ export const useAirportStore = create<AirportStore>((set, get) => ({
       }));
 
     } catch (err: any) {
-      set({ error: err.message });
+      set({ error: err.message, selectedAirport: null });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  // 🔥 BUSCAR POR ID (nuevo método)
+  fetchAirportById: async (id: string) => {
+    try {
+      set({ loading: true, error: null });
+
+      const { aiportCache } = get();
+      
+      // Revisar caché primero
+      if (aiportCache[id]) {
+        set({ selectedAirport: aiportCache[id] });
+        return;
+      }
+
+      // 👇 Usar tu método específico por ID
+      const airport = await AirportService.getAirportById(id);
+
+      if (!airport) throw new Error("Aeropuerto no encontrado");
+
+      set((state) => ({
+        selectedAirport: airport,
+        aiportCache: { ...state.aiportCache, [id]: airport }
+      }));
+
+    } catch (err: any) {
+      set({ error: err.message, selectedAirport: null });
     } finally {
       set({ loading: false });
     }
