@@ -6,18 +6,19 @@ import { AirportService } from "@/services/airports.services"; // 👈 Importar 
 export interface Airport {
   geoname_id?: string;
   country_code?: ReactNode;
-  gmt?: number;
+  gmt?: string;
   id: string | number;
   airport_name?: string;
   iata_code?: string;
-  iacao_code?: string;
+  icao_code?: string;
   country_name?: string;
-  city?: string;
+  city_iata_code?: string;
   latitude?: number;
   longitude?: number;
-  timezone?: number;
-  phone?: string;
+  timezone?: string;
+  phone_number?: string;
   local_time?: string;
+
 }
 
 interface AirportStore {

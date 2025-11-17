@@ -25,10 +25,10 @@ export default function AirportInfoCard() {
       <div className="p-8 text-white">
         <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
           <img
-            src= "/infoCircle.png"
+            src="/infoCircle.png"
             alt="Info icon"
             className="w-4 h-4"
-            />
+          />
           <span className="bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
             Información General
           </span>
@@ -36,10 +36,10 @@ export default function AirportInfoCard() {
 
         <div className="space-y-2 text-lg leading-relaxed">
           <p><b>Código IATA:</b> {selectedAirport?.iata_code ?? "No disponible"}</p>
-          <p><b>Código ICAO:</b> {selectedAirport?.iacao_code ?? "No disponible"}</p>
+          <p><b>Código ICAO:</b> {selectedAirport?.icao_code ?? "No disponible"}</p>
           <p><b>País:</b> {selectedAirport?.country_name ?? "No disponible"}</p>
-          <p><b>Ciudad IATA:</b> {selectedAirport?.city ?? "No disponible"}</p>
-          <p><b>Teléfono:</b> {selectedAirport.phone || "No disponible"}</p>
+          <p><b>Ciudad IATA:</b> {selectedAirport?.city_iata_code ?? "No disponible"}</p>
+          <p><b>Teléfono:</b> {selectedAirport?.phone_number || "No disponible"}</p>
         </div>
       </div>
 
@@ -51,8 +51,7 @@ export default function AirportInfoCard() {
           fill
           className="object-cover brightness-90"
         />
-
-        {/* Gradient overlay (Figma-style stronger on left side) */}
+        
         <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/60"></div>
       </div>
     </div>

@@ -8,16 +8,31 @@ import AirportTabs from "@/components/AirportTabs";
 
 export default function TimeZonePage() {
   const { iata } = useParams();
-  const { selectedAirport, fetchAirportByIata } = useAirportStore();
+  const { selectedAirport, fetchAirportByIata, loading } = useAirportStore();
 
   useEffect(() => {
-    if (!selectedAirport || selectedAirport.iata_code !== iata) {
+    // 👇 Solo hacer fetch si el aeropuerto no coincide
+    if (iata && (!selectedAirport || selectedAirport.iata_code !== iata)) {
       fetchAirportByIata(iata as string);
     }
-  }, [iata, selectedAirport]);
+  }, [iata]); // 👈 Solo depender de iata
+
+  if (loading) {
+    return (
+      <div className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/fondo.png')" }}>
+        <div className="absolute inset-0 bg-black/50"></div>
+        <p className="relative z-10 text-xl animate-pulse">Cargando información...</p>
+      </div>
+    );
+  }
 
   if (!selectedAirport) {
-    return <p className="text-white text-center mt-6">Cargando información...</p>;
+    return (
+      <div className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/fondo.png')" }}>
+        <div className="absolute inset-0 bg-black/50"></div>
+        <p className="relative z-10 text-xl">No se encontró información del aeropuerto</p>
+      </div>
+    );
   }
 
   return (
@@ -33,7 +48,7 @@ export default function TimeZonePage() {
 
         {/* Airport Title */}
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-8 bg-gradient-to-r from-[#3DCBFF] to-[#367BFF] text-transparent bg-clip-text">
-          {selectedAirport.iata_code || iata}
+          {selectedAirport.airport_name} ({selectedAirport.iata_code})
         </h1>
 
         {/* Tabs */}

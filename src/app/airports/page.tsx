@@ -2,18 +2,16 @@
 
 import { useEffect } from "react";
 import { useAirportStore } from "@/store/airportStore";
-
 import AirportPagination from "@/components/AirportPagination";
 import AirportCards from "@/components/AirportCard";
 import AirportsSearch from "@/components/AirportSearch";
 
 export default function AirportsPage() {
-
-  const { fetchAirports } = useAirportStore();
+  const { fetchAirports, search, page } = useAirportStore(); // 👈 Agregar search y page
 
   useEffect(() => {
-    fetchAirports();  // 🚀 carga inicial de datos reales
-  }, []);
+    fetchAirports();
+  }, [search, page]); // 👈 Re-ejecutar cuando cambien search o page
 
   return (
     <div
@@ -41,7 +39,7 @@ export default function AirportsPage() {
             SkyConnect Explorer
           </h1>
 
-          <div className="wflex justify-end w-full md:w-auto">
+          <div className="flex justify-end w-full md:w-auto">
             <AirportsSearch />
           </div>
         </div>

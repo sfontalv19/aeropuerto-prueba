@@ -2,53 +2,75 @@ import { paginate, searchByKeys } from "@/utils/standardRequestsMethods";
 
 export class AirportService {
     private static BASE_URL = "http://api.aviationstack.com/v1"
+    private static cachedAirports: any[] | null = null; // 👈 Caché en memoria
 
-    static async getAirports(search: string, page: number =1){
+    static async getAirports(search: string, page: number = 1){
         const accessKey = process.env.NEXT_PUBLIC_AVIATIONSTACK_KEY;
 
-        const url = `${this.BASE_URL}/airports?access_key=${accessKey}&limit=50`;
+        // 👇 Si ya hay datos en caché, usarlos
+        if (this.cachedAirports) {
+            let airports = this.cachedAirports;
 
-        const response = await fetch(url)
+            if(search){
+                airports = searchByKeys(airports ?? [], ["airport_name", "iata_code"], search);
+            }
+
+            airports = paginate(airports ?? [], page, 10)?.data;
+            return airports;
+        }
+
+        // 👇 Si NO hay caché, hacer el request
+        const url = `${this.BASE_URL}/airports?access_key=${accessKey}&limit=1000`;
+        const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error ( "Error fetching airports")
+            throw new Error("Error fetching airports");
         }
 
         const data = await response.json();
         if (data.error){
-            throw new Error (data.error.message)
-
+            throw new Error(data.error.message);
         }
 
-        let airports = data.data
+        // 👇 Guardar en caché
+        this.cachedAirports = data.data;
+
+        let airports = this.cachedAirports;
 
         if(search){
-            airports = searchByKeys(data.data,["airport_name","iata_code"],search)
+            airports = searchByKeys(airports ?? [], ["airport_name", "iata_code"], search);
         }
 
-        airports = paginate(airports,page,10)?.data
-        return airports
+        airports = paginate(airports ?? [], page, 10)?.data;
+        return airports;
     }
-
 
     static async getAirportById(id: string){
         const accessKey = process.env.NEXT_PUBLIC_AVIATIONSTACK_KEY;
 
-        const url = `${this.BASE_URL}/airports?access_key=${accessKey}&id=${id}`;
+        // 👇 Buscar primero en caché
+        if (this.cachedAirports) {
+            const airport = this.cachedAirports.find(a => a.id === id);
+            if (airport) return airport;
+        }
 
-        const response = await fetch(url)
+        const url = `${this.BASE_URL}/airports?access_key=${accessKey}&id=${id}`;
+        const response = await fetch(url);
 
         if (!response.ok){
-            throw new Error ("error fetching airport datails")
-
-         } 
-         const data = await response.json();
-         if (data.error){
-            throw new Error (data.error.message)
-         }
-         return data.data?.[0]
-
+            throw new Error("error fetching airport details");
+        } 
+        
+        const data = await response.json();
+        if (data.error){
+            throw new Error(data.error.message);
+        }
+        
+        return data.data?.[0];
     }
 
-
+    // 👇 Método opcional para limpiar caché si es necesario
+    static clearCache() {
+        this.cachedAirports = null;
+    }
 }

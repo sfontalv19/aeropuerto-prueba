@@ -1,12 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAirportStore } from "@/store/airportStore";
+import { getLocalTime, formatGMT } from "@/utils/timeUtils";
 
 export default function AirportZonaTime() {
   const { selectedAirport } = useAirportStore();
+  const [currentTime, setCurrentTime] = useState<string>("");
 
-  const timeZone = selectedAirport?.timezone ?? "Pacific/Tahiti";
-  const gmt = selectedAirport?.gmt ?? "-10";
-  const localTime = selectedAirport?.local_time ?? "19/2/2025, 8:47:51";
+  const timeZone = selectedAirport?.timezone ?? "No disponible";
+  const gmt = formatGMT(selectedAirport?.gmt);
+
+  // 👇 Actualizar hora cada segundo
+  useEffect(() => {
+    if (!selectedAirport?.timezone) return;
+
+    // Calcular hora inicial
+    setCurrentTime(getLocalTime(selectedAirport.timezone));
+
+    // Actualizar cada segundo
+    const interval = setInterval(() => {
+      setCurrentTime(getLocalTime(selectedAirport.timezone));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [selectedAirport?.timezone]);
 
   return (
     <div className="w-full flex flex-col items-center gap-8 mt-8">
@@ -26,7 +45,7 @@ export default function AirportZonaTime() {
         {/* Left side */}
         <div className="pl-10 pt-9 flex flex-col gap-3 w-1/2">
           <h2 className="flex items-center gap-3 text-2xl font-semibold text-[#3DCBFF]">
-            <Image src="/global.png" alt="global icon" width={28} height={28}   />
+            <Image src="/global.png" alt="global icon" width={28} height={28} />
             Zona Horaria
           </h2>
 
@@ -64,7 +83,7 @@ export default function AirportZonaTime() {
             Hora Local
           </h2>
 
-          <p className="text-lg">{localTime}</p>
+          <p className="text-lg font-mono">{currentTime || "Calculando..."}</p>
         </div>
 
         {/* Right image */}

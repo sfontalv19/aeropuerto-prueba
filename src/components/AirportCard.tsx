@@ -3,9 +3,8 @@ import { useAirportStore } from "@/store/airportStore";
 import Image from "next/image";
 import Link from "next/link";
 
-
 export default function AirportCards() {
-  const { airports, loading, error } = useAirportStore();
+  const { airports, loading, error, setSelectedAirport } = useAirportStore(); 
 
   if (loading) return <p className="text-blue-400 animate-pulse text-center mt-6">Cargando aeropuertos...</p>;
   if (error) return <p className="text-red-500 text-center mt-6">Error: {error}</p>;
@@ -15,7 +14,12 @@ export default function AirportCards() {
     <div className="w-full max-w-7xl mx-auto">
       <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
         {airports.map((airport) => (
-          <Link key={airport.id} href={`/airports/${airport.iata_code}`} className="no-underline">
+          <Link 
+            key={airport.id} 
+            href={`/airports/${airport.iata_code}`}
+            onClick={() => setSelectedAirport(airport)} //Guardar antes de navegar
+            className="no-underline"
+          >
             <div className="group relative w-full h-[235px] rounded-lg overflow-hidden cursor-pointer border border-white/20 bg-[#0B1120]/80 backdrop-blur-md hover:border-[#00F9FF]/40 hover:scale-[1.01] transition-all duration-300">
               
               <div className="grid grid-cols-[60%_40%] h-full">
@@ -23,7 +27,7 @@ export default function AirportCards() {
                   <div>
                     <h2 className="text-white font-bold text-[17px] leading-tight">{airport.airport_name}</h2>
                     <p className="text-gray-300 text-sm mt-1">
-                      {airport.city}, {airport.country_name}
+                      {airport.city_iata_code}, {airport.country_name}
                     </p>
                   </div>
                   <div className="mb-4">
