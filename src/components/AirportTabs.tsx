@@ -18,14 +18,18 @@ export default function AirportTabs() {
   ];
 
   return (
-    <div className="flex w-full justify-center ">
+    <div className="flex w-full justify-center mt-8 mb-8 pb-8">
       <div
-        className="w-full rounded-[7px] bg-[#414b63]/70 border border-white/15 backdrop-blur-lg p-1 flex gap-1 shadow-[0_15px_45px_rgba(0,0,0,0.35)]"
-        style={{ maxWidth: "1750px", minHeight: "78px" }}
+        className="w-full rounded-[7px] border border-theme backdrop-blur-lg p-1 flex gap-1 shadow-[0_15px_45px_rgba(0,0,0,0.35)]"
+        style={{
+          maxWidth: "1750px",
+          minHeight: "78px",
+          backgroundColor: "var(--tab-bg)",
+        }}
       >
         {tabs.map((tab) => {
-          const isActive =  pathname === tab.path
-         
+          const isActive =
+            pathname === tab.path || pathname.startsWith(`${tab.path}/`);
 
           return (
             <Link
@@ -33,12 +37,17 @@ export default function AirportTabs() {
               href={tab.path}
               className={`
                 flex-1 flex items-center justify-center text-sm font-semibold rounded-[14px] px-4 py-3 transition-all duration-200
-                ${
-                  isActive
-                    ? "bg-gradient-to-r from-[#1D8BFF] to-[#00E2C9] text-white shadow-[0_10px_25px_rgba(0,0,0,0.25)]"
-                    : "text-white/70 hover:text-white"
-                }
               `}
+              style={
+                isActive
+                  ? {
+                      backgroundImage:
+                        "linear-gradient(90deg, var(--accent-start), var(--accent-end))",
+                      color: "#fff",
+                      boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
+                    }
+                  : { color: "var(--tab-text)" }
+              }
             >
               {tab.label}
             </Link>

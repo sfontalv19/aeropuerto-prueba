@@ -33,7 +33,7 @@ export default function AirportZonaTime() {
     <div className="w-full flex flex-col items-center gap-8 mt-8 px-4 sm:px-6 lg:px-10">
 
       {/* CARD 1 - ZONA HORARIA */}
-      <div className="w-full max-w-[1200px] text-white rounded-xl border border-white/15 bg-gradient-to-r from-[#3F495F]/80 to-[#0E1934]/90 shadow-[0_12px_35px_rgba(0,0,0,0.35)] overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full max-w-[1200px] text-theme-primary dark:text-white rounded-xl border border-theme bg-theme-card shadow-[0_12px_35px_rgba(0,0,0,0.2)] dark:bg-gradient-to-r dark:from-[#3F495F]/80 dark:to-[#0E1934]/90 overflow-hidden flex flex-col md:flex-row">
         {/* Left side */}
         <div className="w-full md:w-1/2 p-6 md:p-10 flex flex-col gap-4">
           <h2 className="flex items-center gap-3 text-2xl font-semibold text-[#3DCBFF]">
@@ -53,14 +53,14 @@ export default function AirportZonaTime() {
             src="/aviatior.png"
             alt="airport plane"
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-70 dark:opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/40 to-white/70 dark:via-black/30 dark:to-black/60" />
         </div>
       </div>
 
       {/* CARD 2 - HORA LOCAL */}
-      <div className="w-full max-w-[1200px] text-white rounded-xl border border-white/15 bg-gradient-to-r from-[#3F495F]/80 to-[#0B1530]/90 shadow-[0_12px_35px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full max-w-[1200px] text-theme-primary dark:text-white rounded-xl border border-theme bg-theme-card shadow-[0_12px_35px_rgba(0,0,0,0.2)] dark:bg-gradient-to-r dark:from-[#3F495F]/80 dark:to-[#0B1530]/90 overflow-hidden flex flex-col md:flex-row">
         {/* Left side */}
         <div className="w-full md:w-1/2 p-6 md:p-9 flex flex-col gap-4">
           <h2 className="flex items-center gap-3 text-2xl font-semibold text-[#3DCBFF]">
@@ -68,7 +68,7 @@ export default function AirportZonaTime() {
             Hora Local
           </h2>
 
-          <p className="text-lg md:text-xl font-mono text-white/90">
+          <p className="text-lg md:text-xl font-mono text-theme-primary dark:text-white/90">
             {currentTime || "Calculando..."}
           </p>
         </div>
@@ -79,9 +79,9 @@ export default function AirportZonaTime() {
             src="/aviatior.png"
             alt="airport plane"
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-70 dark:opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/40 to-white/70 dark:via-black/30 dark:to-black/60" />
         </div>
       </div>
     </div>

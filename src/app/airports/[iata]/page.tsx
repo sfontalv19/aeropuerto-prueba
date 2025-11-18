@@ -17,12 +17,12 @@ export default function AirportDetailPage() {
   return (
     <div
       className="
-        relative min-h-screen w-full text-white 
+        relative min-h-screen w-full text-theme-primary dark:text-white
         bg-cover bg-center bg-no-repeat
       "
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 theme-overlay" />
 
       {/* CONTENT CONTAINER */}
       <div className="relative z-10 flex flex-col items-center w-full px-4 sm:px-6">

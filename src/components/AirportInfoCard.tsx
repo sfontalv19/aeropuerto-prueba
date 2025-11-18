@@ -15,8 +15,10 @@ export default function AirportInfoCard() {
         max-w-[1750px]
         h-[435px]
         rounded-lg
-        border border-white/30
-        bg-white/5
+        border border-theme
+        bg-theme-card
+        dark:bg-white/5
+        dark:border-white/30
         backdrop-blur-md
         overflow-hidden
         grid grid-cols-1 md:grid-cols-2
@@ -24,7 +26,7 @@ export default function AirportInfoCard() {
       "
     >
       {/* LEFT COLUMN */}
-      <div className="p-8 text-white">
+      <div className="p-8 text-theme-primary dark:text-white">
         <h2 className="flex items-center gap-2 text-2xl font-bold mb-4">
           <img
             src="/infoCircle.png"
@@ -36,7 +38,7 @@ export default function AirportInfoCard() {
           </span>
         </h2>
 
-        <div className="space-y-2 text-lg leading-relaxed">
+        <div className="space-y-2 text-lg leading-relaxed text-theme-secondary dark:text-white">
           <p><b>Código IATA:</b> {selectedAirport?.iata_code ?? "No disponible"}</p>
           <p><b>Código ICAO:</b> {selectedAirport?.icao_code ?? "No disponible"}</p>
           <p><b>País:</b> {selectedAirport?.country_name ?? "No disponible"}</p>

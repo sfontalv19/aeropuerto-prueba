@@ -64,9 +64,9 @@ export default function AirportStatistics() {
       {/* === CARD 1: Resumen General === */}
       <div
         className="
-          w-full max-w-[1750px] h-[272px] rounded-[7px] border border-white/20 
-          overflow-hidden backdrop-blur-xl text-white
-          bg-gradient-to-r from-[#3F495F] to-[#0E1934]
+          w-full max-w-[1750px] h-[272px] rounded-[7px] border border-theme 
+          overflow-hidden backdrop-blur-xl text-theme-primary dark:text-white
+          bg-theme-card dark:bg-gradient-to-r dark:from-[#3F495F] dark:to-[#0E1934]
           grid grid-cols-1 md:grid-cols-2
           shadow-[0_4px_25px_rgba(0,0,0,0.45)]
         "
@@ -80,18 +80,18 @@ export default function AirportStatistics() {
             </span>
           </h2>
 
-          <div className="space-y-3 text-[17px] leading-relaxed">
+          <div className="space-y-3 text-[17px] leading-relaxed text-theme-secondary dark:text-white">
             <p>
               <b className="text-white/90">Total de Aviones:</b>{" "}
-              <span className="text-white font-bold">{stats.totalAirplanes}</span>
+              <span className="text-theme-primary dark:text-white font-bold">{stats.totalAirplanes}</span>
             </p>
             <p>
               <b className="text-white/90">Tipos de Aeronaves:</b>{" "}
-              <span className="text-white font-bold">{stats.topTypes.length}</span>
+              <span className="text-theme-primary dark:text-white font-bold">{stats.topTypes.length}</span>
             </p>
             <p>
               <b className="text-white/90">Tipos de Motores:</b>{" "}
-              <span className="text-white font-bold">{stats.engineTypes.length}</span>
+              <span className="text-theme-primary dark:text-white font-bold">{stats.engineTypes.length}</span>
             </p>
           </div>
         </div>
@@ -102,18 +102,18 @@ export default function AirportStatistics() {
             src="/aviatior.png"
             alt="Airplane"
             fill
-            className="object-cover brightness-90"
+            className="object-cover brightness-110 dark:brightness-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-white/40 to-white/70 dark:via-black/30 dark:to-black/60"></div>
         </div>
       </div>
 
       {/* === CARD 2: Gráfico de Tipos de Aeronaves === */}
       <div
         className="
-          w-full max-w-[1750px] min-h-[450px] rounded-[7px] border border-white/20 
-          overflow-hidden backdrop-blur-xl text-white
-          bg-gradient-to-r from-[#3F495F] to-[#0E1934]
+          w-full max-w-[1750px] min-h-[450px] rounded-[7px] border border-theme 
+          overflow-hidden backdrop-blur-xl text-theme-primary dark:text-white
+          bg-theme-card dark:bg-gradient-to-r dark:from-[#3F495F] dark:to-[#0E1934]
           shadow-[0_4px_25px_rgba(0,0,0,0.45)]
         "
       >

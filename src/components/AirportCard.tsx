@@ -22,18 +22,18 @@ export default function AirportCards() {
             onClick={() => setSelectedAirport(airport)} //Guardar antes de navegar
             className="no-underline"
           >
-            <div className="group relative w-full h-[235px] rounded-lg overflow-hidden cursor-pointer border border-white/20 bg-[#0B1120]/80 backdrop-blur-md hover:border-[#00F9FF]/40 hover:scale-[1.01] transition-all duration-300">
+            <div className="group relative w-full h-[235px] rounded-lg overflow-hidden cursor-pointer border border-theme bg-theme-card text-theme-primary backdrop-blur-md hover:border-[var(--accent-end)]/60 hover:scale-[1.01] transition-all duration-300 dark:bg-[#0B1120]/80">
               
               <div className="grid grid-cols-[60%_40%] h-full">
                 <div className="p-6 flex flex-col justify-between">
                   <div>
-                    <h2 className="text-white font-bold text-[17px] leading-tight">{airport.airport_name}</h2>
-                    <p className="text-gray-300 text-sm mt-1">
+                    <h2 className="text-theme-primary dark:text-white font-bold text-[17px] leading-tight">{airport.airport_name}</h2>
+                    <p className="text-theme-secondary dark:text-gray-300 text-sm mt-1">
                       {airport.city_iata_code}, {airport.country_name}
                     </p>
                   </div>
                   <div className="mb-4">
-                    <span className="text-4xl font-black text-[#00D9FF] uppercase tracking-wide">{airport.iata_code}</span>
+                    <span className="text-4xl font-black text-[var(--accent-start)] dark:text-[#00D9FF] uppercase tracking-wide">{airport.iata_code}</span>
                   </div>
                 </div>
 
@@ -47,7 +47,7 @@ export default function AirportCards() {
                 </div>
               </div>
 
-              <div className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/40 bg-white/10 backdrop-blur-lg flex justify-center items-center">
+              <div className="absolute top-4 right-4 w-10 h-10 rounded-full border border-theme bg-theme-card-alt/40 backdrop-blur-lg flex justify-center items-center">
                 <Image src="/aviation.png" alt="plane icon" width={20} height={20} />
               </div>
             </div>

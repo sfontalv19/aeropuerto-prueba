@@ -19,10 +19,10 @@ export default function StatisticsPage() {
 
   return (
     <div
-      className="relative min-h-screen w-full text-white bg-cover bg-center bg-no-repeat flex justify-center"
+      className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center bg-no-repeat flex justify-center"
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 theme-overlay"></div>
 
       <div className="relative z-10 w-full max-w-[1200px] px-4 sm:px-6 flex flex-col items-center mt-20">
         <div className="h-3"></div>

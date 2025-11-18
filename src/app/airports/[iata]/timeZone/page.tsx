@@ -19,8 +19,8 @@ export default function TimeZonePage() {
 
   if (loading) {
     return (
-      <div className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/fondo.png')" }}>
-        <div className="absolute inset-0 bg-black/50"></div>
+      <div className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/fondo.png')" }}>
+        <div className="absolute inset-0 theme-overlay"></div>
         <p className="relative z-10 text-xl animate-pulse">Cargando información...</p>
       </div>
     );
@@ -28,8 +28,8 @@ export default function TimeZonePage() {
 
   if (!selectedAirport) {
     return (
-      <div className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/fondo.png')" }}>
-        <div className="absolute inset-0 bg-black/50"></div>
+      <div className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: "url('/fondo.png')" }}>
+        <div className="absolute inset-0 theme-overlay"></div>
         <p className="relative z-10 text-xl">No se encontró información del aeropuerto</p>
       </div>
     );
@@ -37,11 +37,11 @@ export default function TimeZonePage() {
 
   return (
     <div
-      className="relative min-h-screen w-full text-white bg-cover bg-center bg-no-repeat flex justify-center"
+      className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center bg-no-repeat flex justify-center"
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 theme-overlay"></div>
 
       {/* Contenedor centrado */}
       <div className="relative z-10 w-full max-w-[1200px] px-4 sm:px-6 flex flex-col items-center mt-20">

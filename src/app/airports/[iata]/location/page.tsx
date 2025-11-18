@@ -20,10 +20,10 @@ export default function LocationPage() {
   if (loading) {
     return (
       <div 
-        className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center"
+        className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center flex justify-center items-center"
         style={{ backgroundImage: "url('/fondo.png')" }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 theme-overlay"></div>
         <p className="relative z-10 text-xl animate-pulse">Cargando información del aeropuerto...</p>
       </div>
     );
@@ -32,10 +32,10 @@ export default function LocationPage() {
   if (error) {
     return (
       <div 
-        className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center"
+        className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center flex justify-center items-center"
         style={{ backgroundImage: "url('/fondo.png')" }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 theme-overlay"></div>
         <p className="relative z-10 text-red-400 text-xl">Error: {error}</p>
       </div>
     );
@@ -44,10 +44,10 @@ export default function LocationPage() {
   if (!selectedAirport) {
     return (
       <div 
-        className="relative min-h-screen w-full text-white bg-cover bg-center flex justify-center items-center"
+        className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center flex justify-center items-center"
         style={{ backgroundImage: "url('/fondo.png')" }}
       >
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 theme-overlay"></div>
         <p className="relative z-10 text-gray-300 text-xl">No hay información disponible</p>
       </div>
     );
@@ -55,11 +55,11 @@ export default function LocationPage() {
 
   return (
     <div
-      className="relative min-h-screen w-full text-white bg-cover bg-center bg-no-repeat flex justify-center"
+      className="relative min-h-screen w-full text-theme-primary dark:text-white bg-cover bg-center bg-no-repeat flex justify-center"
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 theme-overlay"></div>
 
       {/* Contenedor centrado */}
       <div className="relative z-10 w-full max-w-[1200px] px-4 sm:px-6 flex flex-col items-center mt-20">

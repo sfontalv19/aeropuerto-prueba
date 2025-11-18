@@ -39,7 +39,7 @@ export default function AirportPagination() {
         disabled={loading}
         className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium 
                    rounded-lg disabled:opacity-50 disabled:cursor-not-allowed
-                   disabled:bg-gray-400 transition-colors"
+                   disabled:bg-gray-300 transition-colors"
       >
         Anterior
       </button>
@@ -55,7 +55,7 @@ export default function AirportPagination() {
               min-w-[44px] h-11 px-4 rounded-lg font-medium transition-colors
               ${page === pageNum 
                 ? 'bg-blue-700 text-white' 
-                : 'bg-blue-600 text-white hover:bg-blue-700 '
+                : 'bg-blue-500 text-white hover:bg-blue-600 '
               }
               disabled:opacity-50 disabled:cursor-not-allowed
             `}
@@ -71,7 +71,7 @@ export default function AirportPagination() {
         disabled={loading}
         className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium 
                    rounded-lg disabled:opacity-50 disabled:cursor-not-allowed
-                   disabled:bg-gray-400 transition-colors"
+                   disabled:bg-gray-300 transition-colors"
       >
         Siguiente
       </button>

@@ -17,11 +17,14 @@ export default function AirportsPage() {
     <div
       className="
         relative min-h-screen w-full flex flex-col items-center justify-start
-        bg-cover bg-center bg-no-repeat text-white
+        bg-cover bg-center bg-no-repeat text-theme-primary dark:text-white
       "
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ backgroundColor: "var(--surface-overlay)" }}
+      />
 <div className="h-6"></div>
       <div className="relative z-10 w-full max-w-7xl px-4 md:px-10 pt-12 pb-20">
         <div
