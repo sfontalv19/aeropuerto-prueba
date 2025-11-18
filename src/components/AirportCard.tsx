@@ -19,7 +19,7 @@ export default function AirportCards() {
           <Link 
             key={airport.id} 
             href={`/airports/${airport.iata_code}`}
-            onClick={() => setSelectedAirport(airport)} //Guardar antes de navegar
+            onClick={() => setSelectedAirport(airport)}
             className="no-underline"
           >
             <div
@@ -27,7 +27,8 @@ export default function AirportCards() {
               style={{ animationDelay: `${index * 80}ms` }}
             >
               <div className="flex h-full w-full rounded-[7px] overflow-hidden bg-[#0C1020]/95 dark:bg-[#0B1120]/95 border border-white/10">
-                <div className="flex flex-col justify-between px-8 py-6 w-[420px] max-w-full">
+              
+                <div className="flex flex-col justify-between px-8 py-6 w-[55%]">
                   <div className="space-y-2">
                     <h2 className="text-white text-[18px] font-semibold leading-tight">
                       {airport.airport_name}
@@ -44,12 +45,13 @@ export default function AirportCards() {
                   </div>
                 </div>
 
-                <div className="relative flex-1 min-w-[398px]">
+              
+                <div className="relative w-[45%] h-[233px] rounded-r-[7px] overflow-hidden">
                   <Image
                     src="/aviatior.png"
                     alt="plane"
                     fill
-                    className="object-cover opacity-70"
+                    className="object-cover opacity-[0.7]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#030714]/70 to-[#030714]/85" />
                 </div>
