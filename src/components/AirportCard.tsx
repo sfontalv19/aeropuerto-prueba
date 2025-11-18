@@ -14,41 +14,49 @@ export default function AirportCards() {
 
   return (
     <div className="w-full max-w-7xl mx-auto">
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
-        {airports.map((airport) => (
+      <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {airports.map((airport, index) => (
           <Link 
             key={airport.id} 
             href={`/airports/${airport.iata_code}`}
             onClick={() => setSelectedAirport(airport)} //Guardar antes de navegar
             className="no-underline"
           >
-            <div className="group relative w-full h-[235px] rounded-lg overflow-hidden cursor-pointer border border-theme bg-theme-card text-theme-primary backdrop-blur-md hover:border-[var(--accent-end)]/60 hover:scale-[1.01] transition-all duration-300 dark:bg-[#0B1120]/80">
-              
-              <div className="grid grid-cols-[60%_40%] h-full">
-                <div className="p-6 flex flex-col justify-between">
-                  <div>
-                    <h2 className="text-theme-primary dark:text-white font-bold text-[17px] leading-tight">{airport.airport_name}</h2>
-                    <p className="text-theme-secondary dark:text-gray-300 text-sm mt-1">
+            <div
+              className="card-enter relative w-full max-w-[848px] h-[233px] rounded-[10px] p-[1px] bg-gradient-to-r from-[#0F68FF] to-[#05E2FF]"
+              style={{ animationDelay: `${index * 80}ms` }}
+            >
+              <div className="flex h-full w-full rounded-[7px] overflow-hidden bg-[#0C1020]/95 dark:bg-[#0B1120]/95 border border-white/10">
+                <div className="flex flex-col justify-between px-8 py-6 w-[420px] max-w-full">
+                  <div className="space-y-2">
+                    <h2 className="text-white text-[18px] font-semibold leading-tight">
+                      {airport.airport_name}
+                    </h2>
+                    <p className="text-white/80 text-[15px]">
                       {airport.city_iata_code}, {airport.country_name}
                     </p>
                   </div>
-                  <div className="mb-4">
-                    <span className="text-4xl font-black text-[var(--accent-start)] dark:text-[#00D9FF] uppercase tracking-wide">{airport.iata_code}</span>
+                  <div className="flex items-end justify-between">
+                    <span className="text-[42px] font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-[#00A6FF] to-[#00F9FF]">
+                      {airport.iata_code}
+                    </span>
+                    <span className="h-px flex-1 ml-4 border-b border-white/20" />
                   </div>
                 </div>
 
-                <div className="relative w-full h-full">
+                <div className="relative flex-1 min-w-[398px]">
                   <Image
                     src="/aviatior.png"
                     alt="plane"
                     fill
-                    className="object-cover opacity-40 group-hover:opacity-50 transition-all duration-300"
+                    className="object-cover opacity-70"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#030714]/70 to-[#030714]/85" />
                 </div>
               </div>
 
-              <div className="absolute top-4 right-4 w-10 h-10 rounded-full border border-theme bg-theme-card-alt/40 backdrop-blur-lg flex justify-center items-center">
-                <Image src="/aviation.png" alt="plane icon" width={20} height={20} />
+              <div className="absolute top-4 right-4 w-11 h-11 rounded-full bg-gradient-to-r from-[#0F68FF] to-[#05E2FF] flex justify-center items-center shadow-lg">
+                <Image src="/aviation.png" alt="plane icon" width={22} height={22} />
               </div>
             </div>
           </Link>

@@ -52,24 +52,25 @@ export default function AirportHero({
       <div className="relative z-10 flex flex-col items-center justify-center w-full">
         
         {/* TÍTULO */}
-        <h1 
-          className="text-[80.91px] leading-none font-black text-center mb-16"
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            background: 'linear-gradient(90deg, #006AFF 0%, #00C9FF 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            position: 'relative',
-            top: '-155px',
-            width: '955px',
-          }}
-        >
-          SkyConnect Explorer
-        </h1>
+        <div className="animate-fade-up" style={{ animationDelay: "120ms" }}>
+          <h1 
+            className="gradient-text animate-gradient-flow text-[80.91px] leading-none font-black text-center mb-16"
+            style={{
+              fontFamily: 'Montserrat, sans-serif',
+              position: 'relative',
+              top: '-155px',
+              width: '955px',
+            }}
+          >
+            SkyConnect Explorer
+          </h1>
+        </div>
 
         {/* BÚSQUEDA */}
-        <div className="flex flex-col items-center gap-4 mb-20">
+        <div
+          className="flex flex-col items-center gap-4 mb-20 animate-fade-up"
+          style={{ animationDelay: "260ms" }}
+        >
           
           <input
             type="text"
@@ -77,7 +78,7 @@ export default function AirportHero({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
-            className="bg-white rounded-[18.445px] shadow-[0_1.83px_3.66px_rgba(0,0,0,0.05)] text-gray-800 border-0 outline-none font-normal text-[20px] leading-[36.89px] placeholder-[#006FEE]"
+            className="bg-white rounded-[18.445px] shadow-[0_1.83px_3.66px_rgba(0,0,0,0.05)] text-gray-800 border-0 outline-none font-normal text-[20px] leading-[36.89px] placeholder-[#006FEE] transition-transform duration-300 focus:scale-105 focus:shadow-[0_0_35px_rgba(0,111,238,0.25)]"
             style={{
               fontFamily: 'Inter, sans-serif',
               width: '780px',
@@ -90,7 +91,7 @@ export default function AirportHero({
           
           <button
             onClick={handleSearch}
-            className="text-white transition-all hover:scale-105 flex items-center justify-center gap-[15.6px] border"
+            className="text-white transition-all flex items-center justify-center gap-[15.6px] border hover:-translate-y-0.5 focus-visible:scale-105 animate-pulse-ring"
             style={{
               fontFamily: 'Inter, sans-serif',
               width: '240.5px',

@@ -17,16 +17,33 @@ export default function AirportTabs() {
     { label: "Estadísticas", path: `/airports/${iata}/statistics` },
   ];
 
+  const activeIndex = tabs.findIndex(
+    (tab) => pathname === tab.path || pathname.startsWith(`${tab.path}/`)
+  );
+
+  const indicatorStyle = {
+    width: `calc(${100 / tabs.length}% - 0px)`,
+    transform: `translateX(${(activeIndex < 0 ? 0 : activeIndex) * 100}%)`,
+  };
+
   return (
-    <div className="flex w-full justify-center mt-8 mb-8 pb-8">
+    <div className="flex w-full justify-center mt-8 mb-8 pb-8 animate-fade-up" style={{ animationDelay: "180ms" }}>
       <div
-        className="w-full rounded-[7px] border border-theme backdrop-blur-lg p-1 flex gap-1 shadow-[0_15px_45px_rgba(0,0,0,0.35)]"
+        className="relative w-full rounded-[7px] border border-theme backdrop-blur-lg p-1 flex shadow-[0_15px_45px_rgba(0,0,0,0.35)] overflow-hidden"
         style={{
           maxWidth: "1750px",
           minHeight: "78px",
           backgroundColor: "var(--tab-bg)",
         }}
       >
+        <div
+          className="absolute top-1 bottom-1 left-1 rounded-[14px] transition-transform duration-300 ease-out"
+          style={{
+            ...indicatorStyle,
+            backgroundImage:
+              "linear-gradient(90deg, var(--accent-start), var(--accent-end))",
+          }}
+        />
         {tabs.map((tab) => {
           const isActive =
             pathname === tab.path || pathname.startsWith(`${tab.path}/`);
@@ -36,15 +53,12 @@ export default function AirportTabs() {
               key={tab.label}
               href={tab.path}
               className={`
-                flex-1 flex items-center justify-center text-sm font-semibold rounded-[14px] px-4 py-3 transition-all duration-200
+                relative flex-1 flex items-center justify-center text-sm font-semibold rounded-[14px] px-4 py-3 transition-all duration-200
               `}
               style={
                 isActive
                   ? {
-                      backgroundImage:
-                        "linear-gradient(90deg, var(--accent-start), var(--accent-end))",
                       color: "#fff",
-                      boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
                     }
                   : { color: "var(--tab-text)" }
               }
