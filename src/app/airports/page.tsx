@@ -22,7 +22,7 @@ export default function AirportsPage() {
       style={{ backgroundImage: "url('/fondo.png')" }}
     >
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
+<div className="h-6"></div>
       <div className="relative z-10 w-full max-w-7xl px-4 md:px-10 pt-12 pb-20">
         <div
           className="
@@ -30,6 +30,7 @@ export default function AirportsPage() {
             md:flex-row md:items-center md:justify-between
           "
         >
+            
           <h1
             className="
               text-3xl md:text-4xl font-extrabold tracking-tight select-none whitespace-nowrap
@@ -43,11 +44,11 @@ export default function AirportsPage() {
             <AirportsSearch />
           </div>
         </div>
-
+        <div className="h-10"></div>
         <div className="mt-14 mb-16">
           <AirportCards />
         </div>
-
+        <div className="h-10"></div>
         <AirportPagination />
       </div>
     </div>
